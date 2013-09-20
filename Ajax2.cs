@@ -7,8 +7,13 @@ using System.Web.UI;
 
 namespace blqw
 {
+    /// <summary> 超级方便的Asp.Net Ajax解决方案
+    /// </summary>
     public static class Ajax2
     {
+        /// <summary>
+        /// 缓存
+        /// </summary>
         static class Cache
         {
             static Dictionary<string, object> _Items = new Dictionary<string, object>(255);
@@ -162,6 +167,8 @@ namespace blqw
 #endif
         #endregion
 
+        /// <summary> 当前是否是Ajax回传状态
+        /// </summary>
         public static bool IsAjaxing
         {
             get
@@ -169,7 +176,8 @@ namespace blqw
                 return HttpContext.Current.Request != null && HttpContext.Current.Request.Form["blqw.ajaxmethod"] != null;
             }
         }
-
+        /// <summary> 将Js变量名转成js代码可识别的形式
+        /// </summary>
         private static string ConvertVarName(string name)
         {
             if (name.Contains("."))
@@ -192,20 +200,27 @@ namespace blqw
                 return "window." + name;
             }
         }
-
+        /// <summary> 注册变量
+        /// </summary>
+        /// <param name="name">变量名</param>
+        /// <param name="value">变量值</param>
         public static void RegisterVar(string name, object value)
         {
             var js = ConvertVarName(name) + "=" + Json.ToJsonString(value) + ";";
             RegisterScript(js);
         }
-
+        /// <summary> 注册Alert消息框
+        /// </summary>
+        /// <param name="message"></param>
         public static void Alert(string message)
         {
             var js = "window.alert({0});";
             js = string.Format(js, Json.ToJsonString(message));
             RegisterScript(js);
         }
-
+        /// <summary> 注册js脚本
+        /// </summary>
+        /// <param name="javascript"></param>
         public static void RegisterScript(string javascript)
         {
             var page = (Page)HttpContext.Current.Handler;
@@ -226,7 +241,7 @@ namespace blqw
             }
         }
 
-        /// <summary> 
+        /// <summary> 在页面中注册Ajax脚本
         /// </summary>
         /// <param name="page"></param>
         public static void Register(Page page)
@@ -388,6 +403,8 @@ namespace blqw
             }
         }
 
+        /// <summary> 在C#中模拟JsError对象,可以将Exception转为JsError
+        /// </summary>
         class AjaxError
         {
             public AjaxError(Exception ex)
