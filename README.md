@@ -1,1 +1,1 @@
-Hello blqw.Ajax2
+超级方便的Asp.Net  Ajax解决方案
