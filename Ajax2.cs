@@ -248,7 +248,7 @@ namespace blqw
                 {
                     var name = page.Request.Form["blqw.ajaxmethod"];
                     var method = page.GetType().GetMethod(name, BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public);
-                    var met = Literacy.CreateCaller(method);
+                    var met = Literacy.Cache(method);
                     var data = page.Request.Form["blqw.ajaxdata"];
                     var p = method.GetParameters();
                     object[] args = null;
@@ -345,6 +345,7 @@ namespace blqw
                 {
                     str = "e:" + new AjaxError(ex).ToString();
                 }
+                page.Response.Clear();
                 page.Response.Write("{" + str + "}");
                 page.Response.End();
             }
