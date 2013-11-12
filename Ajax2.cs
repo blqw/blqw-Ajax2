@@ -12,7 +12,7 @@ namespace blqw
     public static class Ajax2
     {
         /// <summary>
-        /// 缓存
+        /// 缓存     
         /// </summary>
         static class Cache
         {
