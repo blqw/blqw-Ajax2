@@ -132,16 +132,19 @@ namespace blqw
                         break;
                 }
             }
-            var arr = [];
-            for (var i = 0; i < args.length; i++) {
-                arr.push(getStr(args[i]));
+            var ajaxdata = '';
+            if (args.length > 0) {
+                var arr = [];
+                for (var i = 0; i < args.length; i++) {
+                    arr.push(getStr(args[i]));
+                }
+                ajaxdata = 'blqw.ajaxdata=' + arr.join('\0');
             }
-
             url = window.location.href;
             var req = blqw.Ajax.GetRequest();
             req.open('POST', url, false);
             req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=utf-8');
-            var ret = req.send('blqw.ajaxdata=' + arr.join('\0') + '&blqw.ajaxmethod=' + method);
+            var ret = req.send(ajaxdata + '&blqw.ajaxmethod=' + method);
             if (req.status == 200) {
                 var html = req.responseText;
                 var data = eval('(' + html+ ')');
