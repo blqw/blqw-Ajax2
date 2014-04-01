@@ -1,6 +1,6 @@
 超级方便的Asp.Net  Ajax解决方案
 http://www.cnblogs.com/blqw/p/Ajax.html
-<code>
+<pre>
 主要代码如下
 服务器端
 protected void Page_Load(object sender, EventArgs e)
@@ -24,4 +24,4 @@ web页面 直接调用
         alert(user.Name);
     }
 </script>
-</code>
+</pre>
