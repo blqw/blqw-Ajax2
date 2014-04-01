@@ -18,10 +18,10 @@ public object GetUserInfo(int id)
     return new { ID = id, Name = "blqw" + id };
 }
 web页面 直接调用
-<script>
+&lt;script&gt;
     function getUser(id) {
         var user = GetUserInfo(id);
         alert(user.Name);
     }
-</script>
+&lt;/script&gt;
 </pre>
