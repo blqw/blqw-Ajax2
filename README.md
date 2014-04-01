@@ -20,9 +20,9 @@ http://www.cnblogs.com/blqw/p/Ajax.html
 	}
 
 web页面 直接调用  
-	<script>
-		function getUser(id) {
-			var user = GetUserInfo(id);
-			alert(user.Name);
-		}
-	</script>
+```javascript
+	function getUser(id) {
+		var user = GetUserInfo(id);
+		alert(user.Name);
+	}
+```
