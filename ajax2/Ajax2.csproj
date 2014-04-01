@@ -42,17 +42,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Json\Json.csproj">
+    <ProjectReference Include="..\..\blqw-json\Json.csproj">
       <Project>{afcc7614-4765-48d7-8c6f-1c3fd644a8c0}</Project>
       <Name>Json</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Literacy\Literacy.csproj">
+    <ProjectReference Include="..\..\blqw.Literacy\Literacy.csproj">
       <Project>{add87dff-e5da-48f4-b2ca-a9ce7f4df669}</Project>
       <Name>Literacy</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="README.md" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
