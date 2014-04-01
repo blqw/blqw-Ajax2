@@ -32,14 +32,7 @@ public object GetUserInfo(int id)
 
 web页面 直接调用
 
-&lt;script&gt;
-
-    function getUser(id) {
-
-        var user = GetUserInfo(id);
-
-        alert(user.Name);
-
-    }
-
-&lt;/script&gt;
+function getUser(id) {
+    var user = GetUserInfo(id);
+    alert(user.Name);
+}
