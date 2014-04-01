@@ -1,7 +1,7 @@
-超级方便的Asp.Net  Ajax解决方案
+超级方便的Asp.Net  Ajax解决方案  
 http://www.cnblogs.com/blqw/p/Ajax.html
 
-主要代码如下
+主要代码如下  
 服务器端
 
 	protected void Page_Load(object sender, EventArgs e)
@@ -19,8 +19,7 @@ http://www.cnblogs.com/blqw/p/Ajax.html
 		return new { ID = id, Name = "blqw" + id };
 	}
 
-web页面 直接调用
-
+web页面 直接调用  
 	<script>
 		function getUser(id) {
 			var user = GetUserInfo(id);
