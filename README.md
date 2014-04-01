@@ -20,9 +20,11 @@ public object GetUserInfo(int id)
 }
 ```
 web页面 直接调用  
-```script
+```javascript
+<script>
 function getUser(id) {
 	var user = GetUserInfo(id);
 	alert(user.Name);
 }
+</script>
 ```
