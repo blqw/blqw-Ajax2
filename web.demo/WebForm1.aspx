@@ -15,7 +15,7 @@ id<0会抛出异常
 <br />
 <input type="button" name="name" value="获取用户名" onclick="getUser(user_id.value)" />
 <br />
-<input type="button" name="name" value="fanye" onclick="fanye(pager); alert('当前页:' + pager.pagenumber)" />
+<input type="button" name="name" value="下一页" onclick="fanye(pager); alert('当前页:' + pager.pagenumber)" />
     </div>
 </form>
 <script>
