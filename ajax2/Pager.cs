@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace blqw
@@ -15,18 +14,23 @@ namespace blqw
 
         public Pager(string name)
         {
-            _name = name;
+            Name = name;
         }
 
         #region 字段
-        private string _name;
         private int _pageindex;
         private int _pagenumber;
         private int _pagecount;
         private int _itemcount;
         private int _pagesize; 
         #endregion
-        
+
+        public string Name
+        {
+            get;
+            private set;
+        }
+
         public int pageindex
         {
             get
@@ -109,11 +113,6 @@ namespace blqw
                     _pagecount = (_itemcount + _pagesize - 1) / _pagesize;
                 }
             }
-        }
-
-        public string Name()
-        {
-            return _name;
         }
     }
 }

@@ -45,7 +45,7 @@ namespace blqw
 
         #region javascript min
 #if !DEBUG
-        const string JAVASCRIPT = @"window.blqw=window.blqw||{};blqw.Ajax=blqw.Ajax||{};blqw.Ajax.GetRequest=function(){if(window.ActiveXObject){try{return new ActiveXObject(""Msxml2.XMLHTTP"")}catch(A){return new ActiveXObject(""Microsoft.XMLHTTP"")}}else{if(window.XMLHttpRequest){return new XMLHttpRequest()}}};blqw.Ajax.Throw=function(D){function A(F,G,E){this.name=""AjaxError"";this.type=E;this.message=F;this.stack=G;this.innerError=null;this.toString=function(){return""ajaxerr:""+this.message}}var B=new A(D.message,D.stack,D.type);var C=B;while(D.innerError){D=D.innerError;C.innerError=new A(D.message,D.stack,D.type);C=C.innerError}return B};blqw.Ajax.Exec=function(method,args){var getStr=function(obj){if(obj==null){return""""}var type=typeof(obj);switch(type){case""number"":case""boolean"":return obj.toString();case""string"":return encodeURIComponent(obj.replace(""\0"",""\0\0""));case""undefined"":return""undefined"";case""function"":try{return arguments.callee(obj())}catch(e){return""null""}case""object"":type=Object.prototype.toString.apply(obj);switch(type){case""[object Date]"":return encodeURIComponent(obj.getFullYear()+""-""+(obj.getMonth()+1)+""-""+obj.getDate()+"" ""+obj.getHours()+"":""+obj.getMinutes()+"":""+obj.getSeconds()+"".""+obj.getMilliseconds());case""[object RegExp]"":return encodeURIComponent(obj.toString().replace(""\0"",""\0\0""));case""[object Array]"":var arr=[];for(var i in obj){arr.push(arguments.callee(obj[i]))}return arr.join("","");case""[object Object]"":return""[object Object]""}break}};var arr=[];for(var i=0;i<args.length;i++){arr.push(getStr(args[i]))}url=window.location.href;var req=blqw.Ajax.GetRequest();req.open(""POST"",url,false);req.setRequestHeader(""Content-Type"",""application/x-www-form-urlencoded; charset=utf-8"");var ret=req.send(""blqw.ajaxdata=""+arr.join(""\0"")+""&blqw.ajaxmethod=""+method);if(req.status==200){var html=req.responseText;var data=eval(""(""+html+"")"");if(""v"" in data){eval(data.v)}if(""e"" in data){throw blqw.Ajax.Throw(data.e)}else{return data.d}}else{alert(""出现错误"")}};";
+        const string JAVASCRIPT = @"window.blqw=window.blqw||{};blqw.Ajax=blqw.Ajax||{};blqw.Ajax.GetRequest=function(){if(window.ActiveXObject)try{return new ActiveXObject(""Msxml2.XMLHTTP"")}catch(c){return new ActiveXObject(""Microsoft.XMLHTTP"")}else if(window.XMLHttpRequest)return new XMLHttpRequest};blqw.Ajax.Throw=function(c){for(var e=function(a,b,c){this.name=""AjaxError"";this.type=c;this.message=a;this.stack=b;this.innerError=null;this.toString=function(){return""ajaxerr:""+this.message}},a=new e(c.message,c.stack,c.type),d=a;c.innerError;)c=c.innerError,d.innerError=new e(c.message,c.stack,c.type),d=d.innerError;return a};blqw.Ajax.Exec=function(c,e){var a=function(b){if(null==b)return"""";var a;switch(typeof b){case ""number"":case ""boolean"":return b.toString();case ""string"":return encodeURIComponent(b.replace(""\x00"",""\x00\x00""));case ""undefined"":return"""";case ""function"":try{return arguments.callee(b())}catch(c){return""""}case ""object"":switch(a=Object.prototype.toString.apply(b),a){case ""[object Date]"":return encodeURIComponent(b.getFullYear()+""-""+(b.getMonth()+1)+""-""+b.getDate()+"" ""+b.getHours()+"":""+b.getMinutes()+"":""+b.getSeconds()+"".""+b.getMilliseconds());case ""[object RegExp]"":return encodeURIComponent(b.toString().replace(""\x00"",""\x00\x00""));case ""[object Array]"":a=[];for(var d in b)a.push(arguments.callee(b[d]));return""[""+a.join("","")+""]"";case ""[object Object]"":a=[];for(d in b)a.push(d+':""""'+arguments.callee(b[d]).replace(""%22"",""%5C%22"")+'""""');return 0===a.length?""{}"":""{""+a.join("","")+""}""}}},d="""";if(0<e.length){for(var d=[],f=0;f<e.length;f++)d.push(a(e[f]));d=""blqw.ajaxdata=""+d.join(""\x00"")}url=window.location.href;a=blqw.Ajax.GetRequest();a.open(""POST"",url,!1);a.setRequestHeader(""Content-Type"",""application/x-www-form-urlencoded; charset=utf-8"");a.send(d+""&blqw.ajaxmethod=""+c);if(200==a.status){a=eval(""(""+a.responseText+"")"");""v""in a&&eval(a.v);if(""e""in a)throw blqw.Ajax.Throw(a.e);return a.d}alert(""出现错误"")};";
 #endif
         #endregion
 
@@ -100,12 +100,12 @@ namespace blqw
                     case 'string':
                         return encodeURIComponent(obj.replace('\0', '\0\0'));
                     case 'undefined':
-                        return 'undefined';
+                        return '';
                     case 'function':
                         try {
                             return arguments.callee(obj());
                         } catch (e) {
-                            return 'null';
+                            return '';
                         }
                     case 'object':
                         type = Object.prototype.toString.apply(obj);
@@ -122,13 +122,15 @@ namespace blqw
                                 return encodeURIComponent(obj.toString().replace('\0', '\0\0'));
                             case '[object Array]':
                                 var arr = [];
-                                for (var i in obj)
+                                for (var i in obj) {
                                     arr.push(arguments.callee(obj[i]));
+                                }
                                 return '[' + arr.join(',') + ']';
                             case '[object Object]':
                                 var arr = [];
-                                for (var i in obj)
-                                    arr.push(i + ':' + arguments.callee(obj[i]));
+                                for (var i in obj) {
+                                    arr.push(i + ':""' + arguments.callee(obj[i]).replace('%22','%5C%22') + '""');
+                                }
                                 if (arr.length === 0) {
                                     return '{}';
                                 }
@@ -191,21 +193,21 @@ namespace blqw
             if (name.Contains("."))
             {
                 var arr = name.Split('.');
-                string n = arr[0];
+                name = "window";
                 StringBuilder sb = new StringBuilder();
-                sb.AppendFormat("window.{0}=window.{0}||{{}};", n);
-                int i = 1;
-                for (; i < arr.Length - 1; i++)
+
+                foreach (var item in arr)
                 {
-                    n += "." + arr[i];
-                    sb.AppendFormat("{0}={0}||{{}};", n);
+                    name += string.Concat("[", Json.ToJsonString(item), "]");
+                    sb.AppendFormat("{0}={0}", name);
+                    sb.Append("||{};");
                 }
                 sb.Append(name);
                 return sb.ToString();
             }
             else
             {
-                return "window." + name;
+                return "window[" + Json.ToJsonString(name) + "]";
             }
         }
 
@@ -414,7 +416,7 @@ namespace blqw
         {
             if (pager != null)
             {
-                RegisterVar(pager.Name(), pager);
+                RegisterVar(pager.Name, pager);
             }
         }
 
