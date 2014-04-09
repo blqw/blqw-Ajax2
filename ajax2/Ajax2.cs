@@ -41,7 +41,6 @@ namespace blqw
             {
                 _Items.Remove(key);
             }
-
         }
 
         #region javascript min
@@ -125,9 +124,15 @@ namespace blqw
                                 var arr = [];
                                 for (var i in obj)
                                     arr.push(arguments.callee(obj[i]));
-                                return arr.join(',');
+                                return '[' + arr.join(',') + ']';
                             case '[object Object]':
-                                return '[object Object]';
+                                var arr = [];
+                                for (var i in obj)
+                                    arr.push(i + ':' + arguments.callee(obj[i]));
+                                if (arr.length === 0) {
+                                    return '{}';
+                                }
+                                return '{' + arr.join(',') + '}';
                         }
                         break;
                 }
@@ -203,6 +208,7 @@ namespace blqw
                 return "window." + name;
             }
         }
+
         /// <summary> 注册变量
         /// </summary>
         /// <param name="name">变量名</param>
@@ -210,15 +216,6 @@ namespace blqw
         public static void RegisterVar(string name, object value)
         {
             var js = ConvertVarName(name) + "=" + Json.ToJsonString(value) + ";";
-            RegisterScript(js);
-        }
-        /// <summary> 注册Alert消息框
-        /// </summary>
-        /// <param name="message"></param>
-        public static void Alert(string message)
-        {
-            var js = "window.alert({0});";
-            js = string.Format(js, Json.ToJsonString(message));
             RegisterScript(js);
         }
         /// <summary> 注册js脚本
@@ -243,7 +240,6 @@ namespace blqw
                 page.ClientScript.RegisterStartupScript(typeof(void), Guid.NewGuid().ToString("N"), javascript, true);
             }
         }
-
         /// <summary> 在页面中注册Ajax脚本
         /// </summary>
         /// <param name="page"></param>
@@ -283,39 +279,43 @@ namespace blqw
                         {
                             var val = d[i].Replace("\0\0", "\0");
                             var pit = p[i].ParameterType;
-                            if (val.Length == 0)
+                            try
                             {
-                                if (pit == typeof(string))
+                                if (Type.GetTypeCode(pit) == TypeCode.String)
                                 {
-                                    args[i] = "";
+                                    args[i] = val;
                                 }
-                                else if (pit.IsValueType && Nullable.GetUnderlyingType(pit) == null)
+                                else if (val.Length > 2 && (val[0] == '[' || val[0] == '{'))
                                 {
-                                    throw new InvalidCastException("<参数 " + (i + 1) + ">转换失败!无法将空值转换为 " + p[i].ParameterType.Name + " 类型");
+                                    args[i] = Json.ToObject(pit, val);
                                 }
                                 else
                                 {
-                                    args[i] = null;
-                                }
-                            }
-                            else
-                            {
-                                try
-                                {
-                                    var nulltype = Nullable.GetUnderlyingType(pit);
-                                    if (nulltype != null)
+                                    if (pit.IsValueType)
                                     {
-                                        args[i] = Convert.ChangeType(val, nulltype);
+                                        var type = Nullable.GetUnderlyingType(pit);
+
+                                        if (val.Length == 0)
+                                        {
+                                            if (type == null)
+                                            {
+                                                args[i] = Activator.CreateInstance(pit);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            args[i] = Convert.ChangeType(val, type ?? pit);
+                                        }
                                     }
-                                    else
+                                    else if (val.Length != 0)
                                     {
                                         args[i] = Convert.ChangeType(val, pit);
                                     }
                                 }
-                                catch (Exception mex)
-                                {
-                                    throw new ArgumentException("<参数 " + (i + 1) + ">转换失败!无法将 {" + val + "} 转换为 " + p[i].ParameterType.Name + " 类型", mex);
-                                }
+                            }
+                            catch (Exception mex)
+                            {
+                                throw new ArgumentException("<参数 " + (i + 1) + ">转换失败!无法将 {" + val + "} 转换为 " + p[i].ParameterType.Name + " 类型", mex);
                             }
                         }
 
@@ -357,11 +357,15 @@ namespace blqw
                         {
                             str = ext + "," + str;
                         }
+                        else
+                        {
+                            str = ext;
+                        }
                     }
                 }
                 catch (Exception ex)
                 {
-                    str = "e:" + new AjaxError(ex).ToString();
+                    str = "e:" + new JsError(ex).ToString();
                 }
                 page.Response.Clear();
                 page.Response.Write("{" + str + "}");
@@ -406,11 +410,31 @@ namespace blqw
             }
         }
 
+        public static void RegisterPager(Pager pager)
+        {
+            if (pager != null)
+            {
+                RegisterVar(pager.Name(), pager);
+            }
+        }
+
+        /// <summary> 注册Alert消息框
+        /// </summary>
+        /// <param name="message"></param>
+        public static void Alert(string message)
+        {
+            var js = "window.alert({0});";
+            js = string.Format(js, Json.ToJsonString(message));
+            RegisterScript(js);
+        }
+
+
+
         /// <summary> 在C#中模拟JsError对象,可以将Exception转为JsError
         /// </summary>
-        class AjaxError
+        class JsError
         {
-            public AjaxError(Exception ex)
+            public JsError(Exception ex)
             {
                 if (ex is TargetInvocationException)
                 {
@@ -418,18 +442,33 @@ namespace blqw
                 }
                 this.message = ex.Message;
                 this.type = ex.GetType().Name;
-
                 this.stack = ex.StackTrace;
 
                 if (ex.InnerException != null)
                 {
-                    this.innerError = new AjaxError(ex.InnerException);
+                    this.innerError = new JsError(ex.InnerException);
                 }
             }
-            public string message { get; set; }
-            public string stack { get; set; }
-            public string type { get; set; }
-            public AjaxError innerError { get; set; }
+            public string message
+            {
+                get;
+                set;
+            }
+            public string stack
+            {
+                get;
+                set;
+            }
+            public string type
+            {
+                get;
+                set;
+            }
+            public JsError innerError
+            {
+                get;
+                set;
+            }
             public override string ToString()
             {
                 return Json.ToJsonString(this);

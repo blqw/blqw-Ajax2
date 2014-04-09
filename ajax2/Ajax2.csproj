@@ -39,6 +39,7 @@
   <ItemGroup>
     <Compile Include="Ajax2.cs" />
     <Compile Include="AjaxMethod.cs" />
+    <Compile Include="Pager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
