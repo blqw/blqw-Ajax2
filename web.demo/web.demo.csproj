@@ -67,9 +67,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="WebForm1.aspx" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\ajax2\Ajax2.csproj">
       <Project>{d8d862ac-52aa-4c84-99b4-1b74fe320daf}</Project>
       <Name>Ajax2</Name>
@@ -77,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="web.config" />
+    <Content Include="WebForm1.aspx" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

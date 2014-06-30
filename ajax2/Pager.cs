@@ -4,6 +4,8 @@ using System.Text;
 
 namespace blqw
 {
+    /// <summary> 用于输出到js中的pager对象
+    /// </summary>
     public class Pager
     {
         public Pager()
@@ -25,12 +27,16 @@ namespace blqw
         private int _pagesize; 
         #endregion
 
+        /// <summary> js中变量的名称,默认: pager
+        /// </summary>
         public string Name
         {
             get;
             private set;
         }
 
+        /// <summary> 当前页索引 从0开始,随pagenumber变化
+        /// </summary>
         public int pageindex
         {
             get
@@ -45,6 +51,8 @@ namespace blqw
             }
         }
 
+        /// <summary> 当前页数 从1开始,随pageindex变化
+        /// </summary>
         public int pagenumber
         {
             get
@@ -59,6 +67,8 @@ namespace blqw
             }
         }
 
+        /// <summary> 每页数量
+        /// </summary>
         public int pagesize
         {
             get
@@ -72,6 +82,8 @@ namespace blqw
             }
         }
 
+        /// <summary> 总页数,随itemcount变化
+        /// </summary>
         public int pagecount
         {
             get
@@ -86,6 +98,8 @@ namespace blqw
             }
         }
 
+        /// <summary> 数据总条数,改变pagecount后该值为-1
+        /// </summary>
         public int itemcount
         {
             get
@@ -98,7 +112,8 @@ namespace blqw
                 Calc();
             }
         }
-
+        /// <summary> 计算
+        /// </summary>
         private void Calc()
         {
             if (_pageindex < 0)

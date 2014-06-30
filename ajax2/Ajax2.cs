@@ -12,7 +12,7 @@ namespace blqw
     public static class Ajax2
     {
         /// <summary>
-        /// 缓存1
+        /// 缓存
         /// </summary>
         static class Cache
         {
@@ -45,7 +45,7 @@ namespace blqw
 
         #region javascript min
 #if !DEBUG
-        const string JAVASCRIPT = @"window.blqw=window.blqw||{};blqw.Ajax=blqw.Ajax||{};blqw.Ajax.GetRequest=function(){if(window.ActiveXObject)try{return new ActiveXObject(""Msxml2.XMLHTTP"")}catch(c){return new ActiveXObject(""Microsoft.XMLHTTP"")}else if(window.XMLHttpRequest)return new XMLHttpRequest};blqw.Ajax.Throw=function(c){for(var e=function(a,b,c){this.name=""AjaxError"";this.type=c;this.message=a;this.stack=b;this.innerError=null;this.toString=function(){return""ajaxerr:""+this.message}},a=new e(c.message,c.stack,c.type),d=a;c.innerError;)c=c.innerError,d.innerError=new e(c.message,c.stack,c.type),d=d.innerError;return a};blqw.Ajax.Exec=function(c,e){var a=function(b){if(null==b)return"""";var a;switch(typeof b){case ""number"":case ""boolean"":return b.toString();case ""string"":return encodeURIComponent(b.replace(""\0"",""\0\0""));case ""undefined"":return"""";case ""function"":try{return arguments.callee(b())}catch(c){return""""}case ""object"":switch(a=Object.prototype.toString.apply(b),a){case ""[object Date]"":return encodeURIComponent(b.getFullYear()+""-""+(b.getMonth()+1)+""-""+b.getDate()+"" ""+b.getHours()+"":""+b.getMinutes()+"":""+b.getSeconds()+"".""+b.getMilliseconds());case ""[object RegExp]"":return arguments.callee(b.toString());case ""[object Array]"":a=[];for(var d in b)a.push(arguments.callee(b[d]));return""[""+a.join("","")+""]"";case ""[object Object]"":a=[];for(d in b)a.push(d+':""'+arguments.callee(b[d]).replace(""%22"",""%5C%22"")+'""');return 0===a.length?""{}"":""{""+a.join("","")+""}""}}},d="""";if(0<e.length){for(var d=[],f=0;f<e.length;f++)d.push(a(e[f]));d=""blqw.ajaxdata=""+d.join(""\x00"")}url=window.location.href;a=blqw.Ajax.GetRequest();a.open(""POST"",url,!1);a.setRequestHeader(""Content-Type"",""application/x-www-form-urlencoded; charset=utf-8"");a.send(d+""&blqw.ajaxmethod=""+c);if(200==a.status){a=eval(""(""+a.responseText+"")"");""v""in a&&eval(a.v);if(""e""in a)throw blqw.Ajax.Throw(a.e);return a.d}alert(""出现错误"")};";
+        const string JAVASCRIPT = @"window.blqw=window.blqw||{};blqw.Ajax=blqw.Ajax||{};blqw.Ajax.GetRequest=function(){if(window.ActiveXObject)try{return new ActiveXObject(""Msxml2.XMLHTTP"")}catch(c){return new ActiveXObject(""Microsoft.XMLHTTP"")}else if(window.XMLHttpRequest)return new XMLHttpRequest};blqw.Ajax.Throw=function(c){for(var e=function(a,b,c){this.name=""AjaxError"";this.type=c;this.message=a;this.stack=b;this.innerError=null;this.toString=function(){return'message:'+this.message+'\r\n'+'stack:'+e.stack}},a=new e(c.message,c.stack,c.type),d=a;c.innerError;)c=c.innerError,d.innerError=new e(c.message,c.stack,c.type),d=d.innerError;return a};blqw.Ajax.Exec=function(c,e){var a=function(b){if(null==b)return"""";var a;switch(typeof b){case ""number"":case ""boolean"":return b.toString();case ""string"":return encodeURIComponent(b.replace(""\0"",""\0\0""));case ""undefined"":return"""";case ""function"":try{return arguments.callee(b())}catch(c){return""""}case ""object"":switch(a=Object.prototype.toString.apply(b),a){case ""[object Date]"":return encodeURIComponent(b.getFullYear()+""-""+(b.getMonth()+1)+""-""+b.getDate()+"" ""+b.getHours()+"":""+b.getMinutes()+"":""+b.getSeconds()+"".""+b.getMilliseconds());case ""[object RegExp]"":return arguments.callee(b.toString());case ""[object Array]"":a=[];for(var d in b)a.push(arguments.callee(b[d]));return""[""+a.join("","")+""]"";case ""[object Object]"":a=[];for(d in b)a.push(d+':""'+arguments.callee(b[d]).replace(""%22"",""%5C%22"")+'""');return 0===a.length?""{}"":""{""+a.join("","")+""}""}}},d="""";if(0<e.length){for(var d=[],f=0;f<e.length;f++)d.push(a(e[f]));d=""blqw.ajaxdata=""+d.join(""\x00"")}url=window.location.href;a=blqw.Ajax.GetRequest();a.open(""POST"",url,!1);a.setRequestHeader(""Content-Type"",""application/x-www-form-urlencoded; charset=utf-8"");a.send(d+""&blqw.ajaxmethod=""+c);if(200==a.status){a=eval(""(""+a.responseText+"")"");""v""in a&&eval(a.v);if(""e""in a)throw blqw.Ajax.Throw(a.e);return a.d}alert(""出现错误"")};";
 #endif
         #endregion
 
@@ -75,7 +75,7 @@ namespace blqw
                 this.stack = stack;
                 this.innerError = null;
                 this.toString = function () {{
-                                    return 'ajaxerr:' + this.message;
+                                    return 'message:' + this.message + '\r\n' + 'stack:' + e.stack;
                                 }};
             }};
             var err = new AjaxError(e.message,e.stack,e.type);
@@ -89,7 +89,6 @@ namespace blqw
         }}
 
     blqw.Ajax.Exec = function (method, args) {
-
             var getStr = function (obj) {
                 if (obj == null) return '';
                 var type = typeof (obj);
@@ -386,8 +385,18 @@ namespace blqw
                         if (attr != null)
                         {
                             var ps = m.GetParameters();
-                            sb.Append(ConvertVarName(attr.FunctionName ?? m.Name));
-                            sb.Append("=function(){return blqw.Ajax.Exec('");
+                            var funcName = attr.FunctionName ?? m.Name;
+                            if (funcName.IndexOf('.') > -1)
+                            {
+                                sb.Append(ConvertVarName(funcName));
+                                sb.Append("=function(){return blqw.Ajax.Exec('");
+                            }
+                            else
+                            {
+                                sb.Append("function ");
+                                sb.Append(funcName);
+                                sb.Append("(){return blqw.Ajax.Exec('");
+                            }
                             sb.Append(m.Name);
                             sb.Append("',arguments);}");
                             sb.AppendLine();
@@ -412,6 +421,9 @@ namespace blqw
             }
         }
 
+        /// <summary> 在js中注册pager对象
+        /// </summary>
+        /// <param name="pager"></param>
         public static void RegisterPager(Pager pager)
         {
             if (pager != null)
@@ -430,6 +442,9 @@ namespace blqw
             RegisterScript(js);
         }
 
+        /// <summary> 全局标识,是否抛出详细异常
+        /// </summary>
+        public static bool ThrowStack { get; set; }
 
 
         /// <summary> 在C#中模拟JsError对象,可以将Exception转为JsError
@@ -443,8 +458,11 @@ namespace blqw
                     ex = ex.InnerException;
                 }
                 this.message = ex.Message;
-                this.type = ex.GetType().Name;
-                this.stack = ex.StackTrace;
+                if (Ajax2.ThrowStack)
+                {
+                    this.type = ex.GetType().Name;
+                    this.stack = ex.StackTrace;
+                }
 
                 if (ex.InnerException != null)
                 {
@@ -476,5 +494,6 @@ namespace blqw
                 return Json.ToJsonString(this);
             }
         }
+
     }
 }

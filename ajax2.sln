@@ -7,10 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ajax2", "ajax2\Ajax2.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "web.demo", "web.demo\web.demo.csproj", "{16643088-2398-4647-AAAE-DFF1BC732D24}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Json", "..\blqw-json\Json.csproj", "{AFCC7614-4765-48D7-8C6F-1C3FD644A8C0}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Literacy", "..\blqw.Literacy\Literacy.csproj", "{ADD87DFF-E5DA-48F4-B2CA-A9CE7F4DF669}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "说明文件", "说明文件", "{C128E16D-9FEB-410B-B54A-696037D7357B}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
@@ -30,14 +26,6 @@ Global
 		{16643088-2398-4647-AAAE-DFF1BC732D24}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16643088-2398-4647-AAAE-DFF1BC732D24}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{16643088-2398-4647-AAAE-DFF1BC732D24}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AFCC7614-4765-48D7-8C6F-1C3FD644A8C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AFCC7614-4765-48D7-8C6F-1C3FD644A8C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AFCC7614-4765-48D7-8C6F-1C3FD644A8C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AFCC7614-4765-48D7-8C6F-1C3FD644A8C0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{ADD87DFF-E5DA-48F4-B2CA-A9CE7F4DF669}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ADD87DFF-E5DA-48F4-B2CA-A9CE7F4DF669}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ADD87DFF-E5DA-48F4-B2CA-A9CE7F4DF669}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ADD87DFF-E5DA-48F4-B2CA-A9CE7F4DF669}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
