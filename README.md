@@ -1,6 +1,6 @@
 超级方便的Asp.Net  Ajax解决方案  
-http://www.cnblogs.com/blqw/p/Ajax.html
-http://www.cnblogs.com/blqw/p/3699880.html
+  http://www.cnblogs.com/blqw/p/Ajax.html
+  http://www.cnblogs.com/blqw/p/3699880.html
 
 主要代码如下  
 服务器端
