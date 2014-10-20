@@ -21,6 +21,7 @@ namespace AjaxDemo
         protected void Button1_Click(object sender, EventArgs e)
         {
             Ajax2.Alert("成功!");
+            Ajax2.RegisterScript("window.location = 'http://www.baidu.com'");
         }
 
         protected void Button2_Click(object sender, EventArgs e)
@@ -78,7 +79,7 @@ namespace AjaxDemo
         [AjaxMethod()]
         public void PostAjax7(User user)
         {
-            Ajax2.Alert(string.Join(Environment.NewLine, "姓名:"+ user.Name, "年龄:"+ user.Age, "生日:"+ user.Birthday));
+            Ajax2.Alert(string.Join(Environment.NewLine, "姓名:" + user.Name, "年龄:" + user.Age, "生日:" + user.Birthday));
         }
 
         //PostAjax8,返回Json对象
@@ -87,6 +88,47 @@ namespace AjaxDemo
         {
             return new User() { Name = "小明", Age = 1, Birthday = new DateTime(2013, 4, 5) };
         }
+
+
+        [AjaxMethod()]
+        public object PostAjax10()
+        {
+            return new { Name = "blqw", Message = "1111", Count = 10 };
+        }
+
+        [AjaxMethod()]
+        public void PostAjax11()
+        {
+            Ajax2.RegisterVar("my.user", new { Name = "blqw", Message = "1111", Count = 10 });
+        }
+
+
+        [AjaxMethod()]
+        public void PostAjax12()
+        {
+            throw new Exception("你是傻逼啊");
+        }
+
+        [AjaxMethod()]
+        public void PostAjax13()
+        {
+            Ajax2.ThrowStack = true;
+            throw new Exception("调试");
+        }
+
+
+        [AjaxMethod()]
+        public int PostAjax14(User user)
+        {
+            return user.Name == "blqw" ? 1 : 0;
+        }
+
+        [AjaxMethod("GetServerTime")]
+        public void PostAjax15()
+        {
+            Ajax2.RegisterVar("datetime.now", DateTime.Now);
+        }
+
 
         public class User
         {

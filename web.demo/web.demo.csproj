@@ -67,9 +67,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ajax2\Ajax2.csproj">
+    <ProjectReference Include="..\ajax2\blqw.Ajax2.csproj">
       <Project>{d8d862ac-52aa-4c84-99b4-1b74fe320daf}</Project>
-      <Name>Ajax2</Name>
+      <Name>blqw.Ajax2</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
