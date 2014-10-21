@@ -2,7 +2,9 @@
 http://www.cnblogs.com/blqw/p/Ajax.html  
 http://www.cnblogs.com/blqw/p/3699880.html  
 
-依赖 : [
+依赖 : 
+[blqw.Literacy](https://code.csdn.net/jy02305022/blqw.Literacy)
+[blqw.Json](https://code.csdn.net/jy02305022/blqw-json)
 
 主要代码如下  
 服务器端
@@ -13,8 +15,7 @@ protected void Page_Load(object sender, EventArgs e)
     if (Ajax2.IsAjaxing == false)	//判断当前请求是否是正在Ajax
     {
 		//注册Pager对象
-        Ajax2.RegisterPager(new Pager("pager") //设置Pager对象的js名称,默认:pager
-        {
+        Ajax2.RegisterPager(new Pager("pager") { //设置Pager对象的js名称,默认:pager
             itemcount = 93,
             pageindex = 0,
             pagesize = 20,
