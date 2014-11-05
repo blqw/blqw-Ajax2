@@ -41,20 +41,49 @@
   <ItemGroup>
     <Compile Include="Ajax2.cs" />
     <Compile Include="AjaxMethod.cs" />
+    <Compile Include="Json\Attribute\JsonFormatAttribute.cs" />
+    <Compile Include="Json\Attribute\JsonIgnoreAttribute.cs" />
+    <Compile Include="Json\Attribute\JsonNameAttribute.cs" />
+    <Compile Include="Json\Json.cs" />
+    <Compile Include="Json\JsonBuilder.cs" />
+    <Compile Include="Json\JsonBuilderSettings.cs" />
+    <Compile Include="Json\JsonObject\IJsonObject.cs" />
+    <Compile Include="Json\JsonObject\JsonArray.cs" />
+    <Compile Include="Json\JsonObject\JsonObject.cs" />
+    <Compile Include="Json\JsonObject\JsonTypeCode.cs" />
+    <Compile Include="Json\JsonObject\JsonValue.cs" />
+    <Compile Include="Json\JsonObject\JsonValue2.cs" />
+    <Compile Include="Json\JsonParser.cs" />
+    <Compile Include="Json\JsonType\JsonMember.cs" />
+    <Compile Include="Json\JsonType\JsonType.cs" />
+    <Compile Include="Json\Literacy\AttributeCollection.cs" />
+    <Compile Include="Json\Literacy\Convert2.cs" />
+    <Compile Include="Json\Literacy\Delegate.cs" />
+    <Compile Include="Json\Literacy\ILoadMember.cs" />
+    <Compile Include="Json\Literacy\Literacy.cs" />
+    <Compile Include="Json\Literacy\ObjectProperty.cs" />
+    <Compile Include="Json\Literacy\ObjectPropertyCollection.cs" />
+    <Compile Include="Json\Literacy\TypeCodes.cs" />
+    <Compile Include="Json\Literacy\TypeInfo.cs" />
+    <Compile Include="Json\Literacy\TypesHelper.cs" />
+    <Compile Include="Json\QuickJsonBuilder.cs" />
+    <Compile Include="Json\QuickStringWriter.cs" />
+    <Compile Include="Json\UnsafeJsonReader.cs" />
     <Compile Include="Pager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\blqw-json\blqw.Json\blqw.Json.csproj">
-      <Project>{2f130490-f69d-4f4f-ba8b-df75acdd94f9}</Project>
-      <Name>blqw.Json</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\blqw.Literacy\Literacy\Literacy\blqw.Literacy.csproj">
-      <Project>{d0c3b619-180a-407b-be4a-9c1864b2a06d}</Project>
-      <Name>blqw.Literacy</Name>
-    </ProjectReference>
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>xcopy "$(ProjectDir)..\..\blqw-json\blqw.Json" "$(ProjectDir)Json" /s /c /i /y
+rd /s /q "$(ProjectDir)Json\bin"
+rd /s /q "$(ProjectDir)Json\obj"
+rd /s /q "$(ProjectDir)Json\Properties"
+del /f /s /q "$(ProjectDir)Json\*.csproj"
+del /f /s /q "$(ProjectDir)Json\*.csproj.user"
+del /f /s /q "$(ProjectDir)Json\*.sln"
+exit 0</PreBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

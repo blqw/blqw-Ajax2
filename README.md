@@ -1,4 +1,4 @@
-超级方便的Asp.Net  Ajax解决方案  
+#blqw.Ajax2 超级方便的web应用程序Ajax解决方案  
 http://www.cnblogs.com/blqw/p/Ajax.html  
 http://www.cnblogs.com/blqw/p/3699880.html  
 
