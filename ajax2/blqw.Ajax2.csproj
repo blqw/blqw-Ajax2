@@ -44,6 +44,8 @@
     <Compile Include="Json\Attribute\JsonFormatAttribute.cs" />
     <Compile Include="Json\Attribute\JsonIgnoreAttribute.cs" />
     <Compile Include="Json\Attribute\JsonNameAttribute.cs" />
+    <Compile Include="Json\Interface\ILoadJson.cs" />
+    <Compile Include="Json\Interface\IToJson.cs" />
     <Compile Include="Json\Json.cs" />
     <Compile Include="Json\JsonBuilder.cs" />
     <Compile Include="Json\JsonBuilderSettings.cs" />
@@ -60,7 +62,9 @@
     <Compile Include="Json\Literacy\Convert2.cs" />
     <Compile Include="Json\Literacy\Delegate.cs" />
     <Compile Include="Json\Literacy\ILoadMember.cs" />
+    <Compile Include="Json\Literacy\IMemberMappingAttribute.cs" />
     <Compile Include="Json\Literacy\Literacy.cs" />
+    <Compile Include="Json\Literacy\MemberMappingAttribute.cs" />
     <Compile Include="Json\Literacy\ObjectProperty.cs" />
     <Compile Include="Json\Literacy\ObjectPropertyCollection.cs" />
     <Compile Include="Json\Literacy\TypeCodes.cs" />
